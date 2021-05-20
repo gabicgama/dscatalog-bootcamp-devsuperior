@@ -13,7 +13,7 @@ import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.services.exceptions.EntityNotFoundException;
 
-// essa notação vai registrar a classe como um componente que vai participar do sistema de
+// @Service - essa notação vai registrar a classe como um componente que vai participar do sistema de
 // injeção de dependencia automatizado pelo spring
 
 @Service
@@ -22,25 +22,34 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 
+	/*
+	 * converter da lista Category para lista CategoryDTO usando expressão lambda
+	 * stream() converter lista pra um stream, pra nos permiter trabalhar com
+	 * expressão lambda. A função map() aplica uma função para cada elemento da
+	 * lista após isso, é preciso converter novamente para lista com o collect()
+	 * 
+	 * List<CategoryDTO> listDTO = new ArrayList<>(); for (Category cat : list) {
+	 * listDTO.add(new CategoryDTO(cat)); }
+	 */
+	
 	@Transactional(readOnly = true)
 	public List<CategoryDTO> findAll() {
 		List<Category> list = repository.findAll();
 		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
-		/*
-		 * converter da lista Category para lista CategoryDTO usando expressão lambda
-		 * stream() converter lista pra um stream, pra nos permiter trabalhar com
-		 * expressão lambda. A função map() aplica uma função para cada elemento da
-		 * lista após isso, é preciso converter novamente para lista com o collect()
-		 * 
-		 * List<CategoryDTO> listDTO = new ArrayList<>(); for (Category cat : list) {
-		 * listDTO.add(new CategoryDTO(cat)); }
-		 */
 	}
 
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		Optional<Category> obj = repository.findById(id);
 		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+		return new CategoryDTO(entity);
+	}
+
+	@Transactional
+	public CategoryDTO insert(CategoryDTO dto) {
+		Category entity = new Category();
+		entity.setName(dto.getName());
+		entity = repository.save(entity);
 		return new CategoryDTO(entity);
 	}
 
