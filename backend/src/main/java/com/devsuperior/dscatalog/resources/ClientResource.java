@@ -16,46 +16,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.devsuperior.dscatalog.dto.CategoryDTO;
-import com.devsuperior.dscatalog.services.CategoryService;
+import com.devsuperior.dscatalog.dto.ClientDTO;
+import com.devsuperior.dscatalog.services.ClientService;
 
-@RestController // define que a classse é um controlador REST
-@RequestMapping(value = "/categories") // define a rota da requisição
-public class CategoryResources {
+@RestController
+@RequestMapping(value = "/clients")
+public class ClientResource {
 
 	@Autowired
-	private CategoryService service;
+	private ClientService service;
 
-	/* ResponseEntity é um obj do spring que vai encapsular uma resposta HTTP */
 	@GetMapping
-	public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
-
-		Page<CategoryDTO> pages = service.findAllPaged(pageable);
+	public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
+		Page<ClientDTO> pages = service.findAllPaged(pageable);
 		return ResponseEntity.ok().body(pages);
 	}
 
-	/* o @OPathVariable casa o id da rota com o idpassado pelo método do java */
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
-		CategoryDTO dto = service.findById(id);
+	public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
+		ClientDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 
-	/*
-	 * @PostMapping - notação necessária para casar os dados da requisição com o obj
-	 * dto. URI usado para retornar o endereço do novo recurso. É um padrão do REST
-	 * retornar o cod 201 e o endereço do recurso criado.
-	 */
 	@PostMapping
-	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
+	public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO dto) {
 		dto = service.insert(dto);
-
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+	public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
@@ -65,5 +56,4 @@ public class CategoryResources {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
 }
