@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.devsuperior.dscatalog.components.JwtTokenEnhancer;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 @Configuration
 @EnableAuthorizationServer // notação para dizer que a classe representa o authorization server do OAuth
