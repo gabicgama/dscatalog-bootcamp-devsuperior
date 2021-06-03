@@ -11,6 +11,9 @@ public class StandardError implements Serializable {
 	private String message;
 	private String path;
 
+	public StandardError() {
+	}
+	
 	public Instant getTimestamp() {
 		return timestamp;
 	}
@@ -31,8 +34,8 @@ public class StandardError implements Serializable {
 		return error;
 	}
 
-	public void setError(String erro) {
-		this.error = erro;
+	public void setError(String error) {
+		this.error = error;
 	}
 
 	public String getMessage() {
