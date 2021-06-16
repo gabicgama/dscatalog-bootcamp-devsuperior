@@ -1,6 +1,7 @@
 package com.devsuperior.dscatalog.services;
 
 import java.util.Optional;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,9 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(Pageable pageable) {
-		Page<Product> list = repository.findAll(pageable);
+	public Page<ProductDTO> findAllPaged(Long categoryId, Pageable pageable) {
+		Category category = (categoryId == 0) ? null : categoryRepository.getOne(categoryId);
+		Page<Product> list = repository.find(category, pageable);
 		return list.map(x -> new ProductDTO(x));
 	}
 
@@ -78,12 +80,12 @@ public class ProductService {
 		entity.setPrice(dto.getPrice());
 		entity.setImgUrl(dto.getImgUrl());
 		entity.setDate(dto.getDate());
-		
+
 		entity.getCategories().clear();
 		for (CategoryDTO catDto : dto.getCategories()) {
 			Category category = categoryRepository.getOne(catDto.getId());
 			entity.getCategories().add(category);
 		}
-		
+
 	}
 }
