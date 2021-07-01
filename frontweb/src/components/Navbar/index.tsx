@@ -1,5 +1,5 @@
-import "./styles.css";
-import "bootstrap/js/src/collapse.js";
+import './styles.css';
+import 'bootstrap/js/src/collapse.js';
 
 const Navbar = () => {
   return (
@@ -8,7 +8,6 @@ const Navbar = () => {
         <a href="link" className="nav-logo-text">
           <h4>DS Catalog</h4>
         </a>
-
         <button
           className="navbar-toggler"
           type="button"
@@ -20,7 +19,6 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
         <div className="collapse navbar-collapse" id="dscatalog-navbar">
           <ul className="navbar-nav offset-md-2 main-menu">
             <li>
@@ -29,10 +27,9 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <a href="link">CATÁLOGO</a>
-            </li>
-            <li>
-              <a href="link">ADMIN</a>
+              <a href="link" className="active">
+                CATÁLOGO
+              </a>
             </li>
           </ul>
         </div>
