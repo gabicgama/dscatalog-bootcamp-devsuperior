@@ -13,6 +13,7 @@ type UrlParams = {
 
 const ProductDetails = () => {
   const { productId } = useParams<UrlParams>();
+
   const [product, setProduct] = useState<Product>();
 
   useEffect(() => {
