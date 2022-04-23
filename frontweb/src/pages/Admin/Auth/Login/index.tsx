@@ -8,7 +8,7 @@ import './styles.css';
 import { saveAuthData } from 'util/storage';
 import { getTokenData } from 'util/auth';
 
-type FormData = {
+type CredentialsDTO = {
   username: string;
   password: string;
 };
@@ -32,9 +32,9 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<CredentialsDTO>();
 
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = (formData: CredentialsDTO) => {
     requestBackendLogin(formData)
       .then((response) => {
         saveAuthData(response.data);
@@ -69,9 +69,8 @@ const Login = () => {
               },
             })}
             type="text"
-            className={`form-control base-input ${
-              errors.username ? 'is-invalid' : ''
-            }`}
+            className={`form-control base-input ${errors.username ? 'is-invalid' : ''
+              }`}
             placeholder="Email"
             name="username"
           />
@@ -85,9 +84,8 @@ const Login = () => {
               required: 'Campo obrigatório',
             })}
             type="password"
-            className={`form-control base-input ${
-              errors.password ? 'is-invalid' : ''
-            }`}
+            className={`form-control base-input ${errors.password ? 'is-invalid' : ''
+              }`}
             placeholder="Password"
             name="password"
           />
