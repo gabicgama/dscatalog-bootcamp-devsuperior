@@ -7,4 +7,28 @@
     font-size: 22px;
     letter-spacing: -0.015em;
     color: #263238;
+    margin-bottom: 30px;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.product-crud-inputs-container {
+    margin-bottom: 30px;
+}
+
+.product-crud-inputs-left-container {
+    margin-bottom: 30px;
+}
+
+.product-crud-buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (min-width:992px) {
+    .product-crud-inputs-left-container {
+        margin-bottom: 0;
+    }
 }
