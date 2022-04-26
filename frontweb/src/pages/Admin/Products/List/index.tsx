@@ -1,3 +1,4 @@
+import './styles.css';
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -5,7 +6,7 @@ import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
 import { requestBackend } from 'util/requests';
 import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
-import './styles.css';
+import Pagination from 'components/Pagination';
 
 const List = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
@@ -45,6 +46,7 @@ const List = () => {
           </div>
         ))}
       </div>
+      <Pagination />
     </div>
   );
 };

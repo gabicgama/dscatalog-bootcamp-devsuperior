@@ -1,13 +1,13 @@
+import './styles.css';
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
-import CurrencyInput from 'react-currency-input-field';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
-import Select from 'react-select';
 import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
-import './styles.css';
+import CurrencyInput from 'react-currency-input-field';
+import Select from 'react-select';
 
 type UrlParams = {
   productId: string;
