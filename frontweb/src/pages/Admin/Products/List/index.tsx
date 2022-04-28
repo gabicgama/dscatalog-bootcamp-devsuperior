@@ -7,10 +7,13 @@ import { SpringPage } from 'types/vendor/spring';
 import { requestBackend } from 'util/requests';
 import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 import Pagination from 'components/Pagination';
-import ProductFilter from 'components/ProductFilter/indext';
+import ProductFilter, {
+  ProductFilterData,
+} from 'components/ProductFilter/indext';
 
 type ControlComponentsData = {
   activePage: number;
+  filterData: ProductFilterData;
 };
 
 const List = () => {
@@ -19,10 +22,21 @@ const List = () => {
   const [controlComponentsData, setcontrolComponentsData] =
     useState<ControlComponentsData>({
       activePage: 0,
+      filterData: { name: '', category: null },
     });
 
   const handlePageChange = (pageNumber: number) => {
-    setcontrolComponentsData({ activePage: pageNumber });
+    setcontrolComponentsData({
+      activePage: pageNumber,
+      filterData: controlComponentsData.filterData,
+    });
+  };
+
+  const handleSubmitFilter = (data: ProductFilterData) => {
+    setcontrolComponentsData({
+      activePage: 0,
+      filterData: data,
+    });
   };
 
   const getProducts = useCallback(() => {
@@ -32,6 +46,8 @@ const List = () => {
       params: {
         page: controlComponentsData.activePage,
         size: 3,
+        name: controlComponentsData.filterData.name,
+        categoryId: controlComponentsData.filterData.category?.id,
       },
     };
     requestBackend(config).then((response) => {
@@ -51,7 +67,7 @@ const List = () => {
             ADICIONAR
           </button>
         </Link>
-        <ProductFilter />
+        <ProductFilter onSubmitFilter={handleSubmitFilter} />
       </div>
       <div className="row">
         {page?.content.map((product) => (
@@ -61,6 +77,7 @@ const List = () => {
         ))}
       </div>
       <Pagination
+        forcePage={page?.number}
         pageCount={page ? page.totalPages : 0}
         range={3}
         onChange={handlePageChange}
