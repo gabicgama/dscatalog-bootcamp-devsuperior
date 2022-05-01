@@ -5,4 +5,5 @@ test('ButtonIcon should render button with given text', () => {
   const text = 'Fazer login';
   render(<ButtonIcon text={text} />);
   expect(screen.getByText(text)).toBeInTheDocument();
+  expect(screen.getByTestId('arrow')).toBeInTheDocument();
 });
