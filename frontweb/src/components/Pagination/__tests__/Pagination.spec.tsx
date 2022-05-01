@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import Pagination from '..';
 
 describe('Pagination tests', () => {
-  test.only('should render Pagination', () => {
+  test('should render Pagination', () => {
     const pageCount = 3;
     const range = 3;
     render(<Pagination pageCount={pageCount} range={range} />);
